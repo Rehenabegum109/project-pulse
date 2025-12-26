@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import AdminDashboard from './admin/page';
 
 export default function DashboardPage() {
   const [role, setRole] = useState(null);
@@ -13,12 +14,11 @@ export default function DashboardPage() {
   if (!role) return <div>Loading...</div>;
 
   return (
-    <div className="p-6 mt-20">
+    <div className="bg-gradient-to-b from-blue-100 via-blue-100 to-white min-h-screen ">
 
       {role === 'admin' && (
         <>
-          <h1 className="text-3xl font-bold">Welcome Admin 👑</h1>
-          <p>You have full system access</p>
+        <AdminDashboard/>
         </>
       )}
 

@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { FaUsers, FaTasks, FaExclamationTriangle, FaRegCalendarAlt } from 'react-icons/fa';
 import { RiEBikeFill } from 'react-icons/ri';
-import { AiOutlineProject, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineHome, AiOutlineProject, AiOutlineUser } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -24,18 +24,18 @@ export default function DashboardLayout({ children }) {
     localStorage.removeItem('token'); 
     router.push('/login'); 
   };
-  // Links per role
+          
   const links = {
+    
+
     admin: [
-      { href: '/dashboard', label: 'Dashboard Home' },
+      { href: '/dashboard', label: '< Home',icon:<AiOutlineHome/> },
       { href: '/dashboard/admin/projects', label: 'Projects', icon: <AiOutlineProject /> },
-      { href: '/dashboard/users', label: 'Users', icon: <FaUsers /> },
-      { href: '/dashboard/assignments', label: 'Assignments', icon: <FaTasks /> },
-      { href: '/dashboard/monitoring', label: 'Monitoring', icon: '📊' },
+      
       { href: '/dashboard/profile', label: 'Profile' },
     ],
     employee: [
-      { href: '/dashboard/employee', label: 'Dashboard Home' },
+      { href: '/dashboard/employee', label: ' Home',icon:<AiOutlineHome/> },
      
       { href: '/dashboard/employee/projects', label: 'Projects', icon: <AiOutlineProject /> },
       { href: '/dashboard/employee/checkins', label: 'Weekly Check-ins', icon:<FaRegCalendarAlt/> },
@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
       { href: '/dashboard/profile', label: 'Profile' ,icon:<AiOutlineUser/> },
     ],
     client: [
-      { href: '/dashboard/client', label: 'Dashboard Home' },
+      { href: '/dashboard/client', label: 'Home',icon:<AiOutlineHome/> },
       { href: '/dashboard/client/projects', label: 'Projects', icon: <AiOutlineProject /> },
       {   
   href: '/dashboard/client/feedback',
@@ -65,6 +65,14 @@ export default function DashboardLayout({ children }) {
         <h2 className="text-2xl font-bold mb-6">
           {role ? role.charAt(0).toUpperCase() + role.slice(1) : 'Dashboard'}
         </h2>
+          <div className="flex items-center mb-4">
+    <AiOutlineArrowLeft
+      size={24}
+      className="cursor-pointer mr-4"
+      onClick={() => router.back()} 
+    />
+
+  </div>
         <nav className="flex flex-col space-y-3">
           {role && links[role].map((link, i) => (
             <Link key={i} href={link.href} className="flex items-center gap-2 hover:text-gray-300">
@@ -82,7 +90,10 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-6">{children}</main>
+      <main className="flex-1 p-6">
+        
+        
+        {children}</main>
     </div>
   );
 }

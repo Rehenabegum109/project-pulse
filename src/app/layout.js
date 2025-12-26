@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-b from-blue-100 via-blue-100 to-white font-sans">
+      <body className="bg-gradient-to-b from-blue-100 via-blue-100 to-white font-sans max-h-screen">
         
         <AuthProvider>
         <Navbar/>

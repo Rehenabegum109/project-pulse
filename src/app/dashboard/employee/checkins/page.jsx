@@ -1,4 +1,5 @@
 "use client";
+
 import axiosSecure from "@/utils/useAxios";
 import { useState, useEffect } from "react";
 
@@ -17,8 +18,12 @@ export default function EmployeeCheckIn({ projectId }) {
 
   useEffect(() => {
     const fetchCheckIns = async () => {
-      const res = await axiosSecure.get(`/checkins/${projectId}`);
-      setCheckins(res.data);
+      try {
+        const res = await axiosSecure.get(`/checkins/${projectId}`);
+        setCheckins(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchCheckIns();
   }, [projectId]);
@@ -33,15 +38,18 @@ export default function EmployeeCheckIn({ projectId }) {
         confidenceLevel: form.confidence,
         completionPercentage: form.completion,
       });
-      setMessage(res.data.message);
+      setMessage(res.data.message || "Check-in submitted");
       setForm({ progress: "", blockers: "", confidence: 3, completion: 0 });
+      // Refresh checkins after submission
+      const updated = await axiosSecure.get(`/api/checkins/${projectId}`);
+      setCheckins(updated.data);
     } catch (err) {
       setMessage(err.response?.data?.message || "Error submitting check-in");
     }
   };
 
   return (
-    <div className="p-4 space-y-6 mt-10">
+    <div className="p-4 mt-10 space-y-6">
       <h1 className="text-3xl font-bold mb-4">Employee Weekly Check-In</h1>
       {message && <p className="text-green-600">{message}</p>}
 
@@ -85,8 +93,8 @@ export default function EmployeeCheckIn({ projectId }) {
         </button>
       </form>
 
-      {/* Table */}
-      <section className="overflow-x-auto p-4 border rounded shadow">
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto p-4 border rounded shadow">
         <h2 className="text-2xl font-semibold mb-2">Your Weekly Check-Ins</h2>
         <table className="min-w-full border border-gray-200 rounded">
           <thead className="bg-gray-100">
@@ -122,8 +130,40 @@ export default function EmployeeCheckIn({ projectId }) {
             ))}
           </tbody>
         </table>
-      </section>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden flex flex-col gap-4">
+        {checkins.map((c) => (
+          <div key={c._id} className="border rounded p-4 shadow hover:shadow-lg">
+            <p>
+              <span className="font-semibold">Week:</span> {c.week}
+            </p>
+            <p>
+              <span className="font-semibold">Progress:</span> {c.progressSummary}
+            </p>
+            <p>
+              <span className="font-semibold">Blockers:</span> {c.blockers || "-"}
+            </p>
+            <p>
+              <span className="font-semibold">Confidence:</span>{" "}
+              <span className={`px-2 py-1 rounded text-white ${confidenceColor(c.confidenceLevel)}`}>
+                {c.confidenceLevel}
+              </span>
+            </p>
+            <p>
+              <span className="font-semibold">Completion:</span>
+              <div className="w-full bg-gray-200 rounded-full h-2 mt-1 mb-1">
+                <div
+                  className="bg-blue-500 h-2 rounded-full"
+                  style={{ width: `${c.completionPercentage}%` }}
+                />
+              </div>
+              <span className="text-sm">{c.completionPercentage}%</span>
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-

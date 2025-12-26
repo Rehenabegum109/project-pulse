@@ -1,30 +1,3 @@
-// 'use client';
-
-// export default function AdminDashboard() {
-//   return (
-//     <div className="mt-10">
-//       <h1 className="text-2xl font-bold mb-4">Welcome Admin 👋</h1>
-//       <p className="mb-6">You have full access to the system.</p>
-
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//         <div className="p-4 bg-white rounded shadow">
-//           <h2 className="font-semibold mb-2">Project Management</h2>
-//           <p>Creates and manages projects</p>
-//         </div>
-
-//         <div className="p-4 bg-white rounded shadow">
-//           <h2 className="font-semibold mb-2">Client & Employee Assignment</h2>
-//           <p>Assigns clients and employees to projects</p>
-//         </div>
-
-//         <div className="p-4 bg-white rounded shadow">
-//           <h2 className="font-semibold mb-2">Project Monitoring</h2>
-//           <p>Monitors project health and risks</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 'use client';
 import { useEffect, useState } from 'react';
@@ -78,7 +51,7 @@ export default function AdminDashboard() {
   }, {});
 
   return (
-    <div className="p-6 space-y-8 mt-20">
+    <div className="p-10  mt-5">
       
       {/* Projects by Health Status */}
       <section>

@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -27,21 +28,23 @@ export default function ProjectsPage() {
     fetchProjects();
   }, []);
 
-  if (loading) return <p>Loading projects...</p>;
-  if (error) return <p>{error}</p>;
-  if (projects.length === 0) return <p>No projects available.</p>;
+  if (loading) return <p className="p-4">Loading projects...</p>;
+  if (error) return <p className="p-4 text-red-500">{error}</p>;
+  if (projects.length === 0) return <p className="p-4">No projects available.</p>;
 
   return (
-    <div className="p-5 mt-10">
-      <h1 className="text-2xl font-bold mb-4">My Projects</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300">
+    <div className="p-4 mt-10">
+      <h1 className="text-3xl font-bold mb-6">My Projects</h1>
+
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full border border-gray-300 rounded">
           <thead className="bg-gray-100">
             <tr>
               <th className="border px-4 py-2 text-left">Project Name</th>
               <th className="border px-4 py-2 text-left">Status</th>
               <th className="border px-4 py-2 text-left">Client ID</th>
-              <th className="border px-4 py-2 text-left">Employee IDs</th>
+              <th className="border px-4 py-2 text-left">Employees</th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +65,29 @@ export default function ProjectsPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden flex flex-col gap-4">
+        {projects.map((project) => (
+          <div
+            key={project._id}
+            className="border rounded p-4 shadow hover:shadow-lg cursor-pointer"
+            onClick={() => router.push(`/feedback/${project._id}`)}
+          >
+            <h2 className="text-xl font-semibold mb-2">{project.name}</h2>
+            <p>
+              <span className="font-medium">Status:</span> {project.status || "N/A"}
+            </p>
+            <p>
+              <span className="font-medium">Client ID:</span> {project.client}
+            </p>
+            <p>
+              <span className="font-medium">Employees:</span>{" "}
+              {project.employees?.length > 0 ? project.employees.join(", ") : "No employees"}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-

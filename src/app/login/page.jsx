@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axiosSecure from "@/utils/useAxios";
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/login", {
+      const { data } = await axiosSecure.post("/auth/login", {
         email,
         password,
       });
@@ -33,10 +34,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-20 p-6 border rounded shadow">
-      <h2 className="text-2xl mb-4">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+   
       {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-100 flex flex-col">
+        
+           <h2 className="text-2xl items-center text-center mb-4">Login</h2>        
         <input
           type="email"
           placeholder="Email"
@@ -58,44 +61,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-// 'use client';
-// import { useState } from 'react';
-// import Link from 'next/link';
-// import Image from 'next/image';
-// import { useAuth } from '@/context/AuthContext';
-
-// export default function Navbar() {
-//   const { user, logout, loading } = useAuth();
-//   const [menuOpen, setMenuOpen] = useState(false);
-
-//   if (loading) return null;
-//   const isAuthenticated = !!user;
-
-//   return (
-//     <nav className="bg-white shadow fixed w-full z-20">
-//       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-//         <Link href="/">
-//           <Image src="/logo.jpg" alt="Logo" width={100} height={40} />
-//         </Link>
-
-//         <ul className="hidden md:flex space-x-6 items-center">
-//           <li><Link href="/">Home</Link></li>
-//           <li><Link href="/projects">Projects</Link></li>
-//           <li><Link href="/feedback">Feedback</Link></li>
-//           {isAuthenticated && user.role === 'admin' && (
-//             <li><Link href="/riskboard">Risk Board</Link></li>
-//           )}
-//         </ul>
-
-//         <div className="hidden md:flex space-x-3">
-//           {isAuthenticated ? (
-//             <button onClick={logout} className="bg-red-500 text-white px-4 py-1 rounded">Logout</button>
-//           ) : (
-//             <Link href="/login" className="bg-blue-500 text-white px-4 py-1 rounded">Login</Link>
-//           )}
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// }
