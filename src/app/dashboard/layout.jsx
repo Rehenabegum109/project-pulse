@@ -18,29 +18,23 @@ export default function DashboardLayout({ children }) {
   }, []);
 
   
-  // Logout function
-  const handleLogout = () => {
-    localStorage.removeItem('userRole'); 
-    localStorage.removeItem('token'); 
-    router.push('/login'); 
-  };
           
   const links = {
     
 
     admin: [
-      { href: '/dashboard', label: '< Home',icon:<AiOutlineHome/> },
+      { href: '/dashboard', label: ' Home',icon:<AiOutlineHome/> },
       { href: '/dashboard/admin/projects', label: 'Projects', icon: <AiOutlineProject /> },
       
-      { href: '/dashboard/profile', label: 'Profile' },
+    
     ],
     employee: [
       { href: '/dashboard/employee', label: ' Home',icon:<AiOutlineHome/> },
      
       { href: '/dashboard/employee/projects', label: 'Projects', icon: <AiOutlineProject /> },
-      { href: '/dashboard/employee/checkins', label: 'Weekly Check-ins', icon:<FaRegCalendarAlt/> },
+    
       { href: '/dashboard/employee/open-risks', label: 'Open Risks', icon: <FaExclamationTriangle /> },
-
+      {href :'/dashboard/employee/pending-checking', label:'Panding Checking',icon:<RiEBikeFill/>},
       { href: '/dashboard/profile', label: 'Profile' ,icon:<AiOutlineUser/> },
     ],
     client: [
@@ -80,13 +74,7 @@ export default function DashboardLayout({ children }) {
             </Link>
           ))}
         </nav>
-         {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="mt-6 w-full bg-red-500 py-2 rounded hover:bg-red-600"
-        >
-          Logout
-        </button>
+       
       </aside>
 
       {/* Main content */}

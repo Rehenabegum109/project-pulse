@@ -23,7 +23,7 @@ Database: MongoDB Atlas
 
 Authentication: JWT-based
 
-Deployment: Frontend (Vercel), Backend (Render / Railway / Vercel)
+Deployment: Frontend (Vercel), Backend ( Vercel)
 
 3. Backend Choice
 
@@ -116,7 +116,7 @@ Shows weekly check-ins, feedback, risk updates, and project status changes
 
 5. Setup Instructions
 5.1 Clone the repository
-git clone https://github.com/yourusername/projectpulse.git
+git clone https://github.com/Rehenabegum109/project-pulse.git
 cd projectpulse
 
 5.2 Install dependencies
@@ -179,7 +179,7 @@ Live URL: https://your-live-url.com
 
 Frontend hosted on Vercel
 
-Backend hosted on Render / Railway / Vercel
+Backend hosted on Vercel
 
 Database hosted on MongoDB Atlas
 
@@ -191,23 +191,7 @@ Duration: 5–8 minutes
 
 Shows: role-based login, weekly check-ins, health score logic, admin dashboard insights
 
-9. Folder Structure
-projectpulse/
-├── frontend/
-│   ├── components/
-│   ├── pages/
-│   ├── styles/
-│   └── ...
-├── backend/ (if using Express)
-│   ├── models/
-│   ├── routes/
-│   ├── controllers/
-│   └── ...
-├── .env.example
-├── README.md
-└── package.json
-
-10. Notes
+9. Notes
 
 Partial completion acceptable if core features work
 

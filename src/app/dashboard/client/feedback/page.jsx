@@ -45,7 +45,7 @@ export default function ClientFeedback({ projectId }) {
   };
 
   return (
-    <div className="p-4 space-y-6 max-w-4xl mx-auto">
+    <div className="p-4 space-y-6 max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-center">Client Weekly Feedback</h1>
       {message && <p className="text-green-600 text-center">{message}</p>}
 

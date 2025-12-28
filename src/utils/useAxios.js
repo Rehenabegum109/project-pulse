@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const axiosSecure = axios.create({ baseURL: "http://localhost:5000/api" });
+const axiosSecure = axios.create({ baseURL:"https://pulse-server-beta.vercel.app"  });
 
 axiosSecure.interceptors.request.use(config => {
   const token = localStorage.getItem("token");

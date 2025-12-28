@@ -11,7 +11,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axiosSecure.get("/auth/me"); // create this backend route
+        const res = await axiosSecure.get("/auth/me"); 
         setUser(res.data);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -27,7 +27,8 @@ const ProfilePage = () => {
   if (!user) return <p className="text-center mt-10">No profile data found.</p>;
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-lg mt-10">
+    <div className=" ">
+       <div className="p-6 max-w-md mx-auto bg-gradient-to-b from-blue-100 via-blue-100 to-white shadow-md rounded-lg mt-10">
       <h1 className="text-2xl font-bold mb-4">My Profile</h1>
       <div className="mb-2">
         <span className="font-semibold">Name: </span>
@@ -42,6 +43,8 @@ const ProfilePage = () => {
         {user.role}
       </div>
     </div>
+    </div>
+   
   );
 };
 

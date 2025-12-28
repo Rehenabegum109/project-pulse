@@ -1,6 +1,4 @@
-
 'use client';
-
 
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -12,7 +10,6 @@ export default function ProjectPage() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
 
   // Fetch projects
   useEffect(() => {
@@ -31,6 +28,7 @@ export default function ProjectPage() {
     fetchProjects();
   }, []);
 
+  // Filtered projects
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
       const matchesSearch = p.name?.toLowerCase().includes(search.toLowerCase());
@@ -39,6 +37,7 @@ export default function ProjectPage() {
     });
   }, [projects, search, statusFilter]);
 
+  // Health badge
   const getHealthStatus = (score) => {
     if (score >= 80) return { text: "On Track", color: "bg-green-100 text-green-700" };
     if (score >= 60) return { text: "At Risk", color: "bg-yellow-100 text-yellow-700" };
@@ -48,7 +47,7 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Projects</h1>
+        <h1 className="text-3xl font-bold mb-6 mt-10">Projects</h1>
 
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -71,12 +70,14 @@ export default function ProjectPage() {
           </select>
         </div>
 
+        {/* Loading / Error */}
         {loading && <p className="text-gray-500">Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
         {!loading && filteredProjects.length === 0 && <p className="text-gray-500">No projects found.</p>}
 
+        {/* Project Table */}
         {!loading && filteredProjects.length > 0 && (
-          <div className="overflow-x-auto bg-white rounded-2xl shadow-sm border">
+          <div className="overflow-x-auto bg-gradient-to-b from-blue-100 via-blue-100 to-white rounded-2xl shadow-sm border">
             <table className="min-w-full">
               <thead>
                 <tr className="bg-gray-100 text-left text-sm">
@@ -91,7 +92,6 @@ export default function ProjectPage() {
               <tbody>
                 {filteredProjects.map((project, index) => {
                   const health = getHealthStatus(project.healthScore || 0);
-
                   return (
                     <motion.tr
                       key={project._id}
@@ -104,12 +104,16 @@ export default function ProjectPage() {
                       <td className="p-4 font-medium">{project.name}</td>
                       <td className="p-4 text-sm">{project.client}</td>
                       <td className="p-4">
-                        <span className={`px-3 py-1 text-sm rounded-full ${health.color}`}>{health.text}</span>
+                        <span className={`px-3 py-1 text-sm rounded-full ${health.color}`}>
+                          {health.text}
+                        </span>
                       </td>
-                      <td className={`p-4 font-semibold`}>{project.healthScore || 0}%</td>
+                      <td className="p-4 font-semibold">{project.healthScore || 0}%</td>
                       <td className="p-4">
                         <div className="flex gap-2">
-                          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-sm">View</button>
+                          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-sm">
+                            View
+                          </button>
                           
                         </div>
                       </td>
@@ -124,4 +128,3 @@ export default function ProjectPage() {
     </div>
   );
 }
-

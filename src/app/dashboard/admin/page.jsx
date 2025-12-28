@@ -17,7 +17,7 @@ export default function AdminDashboard() {
 
   const fetchProjects = async () => {
     try {
-      const res = await axiosSecure.get('/admin/projects');
+      const res = await axiosSecure.get('/projects');
       setProjects(res.data);
     } catch (err) {
       console.error(err);

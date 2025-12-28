@@ -1,7 +1,8 @@
-import Navbar from '@/Components/Navbar/Navbar';
+
 import './globals.css';
 
 import Footer from '@/Components/Home/Footer';
+import Navbar from '@/Components/Navbar/Navbar';
 import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata = {

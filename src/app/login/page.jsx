@@ -14,17 +14,17 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axiosSecure.post("/auth/login", {
+      const { data } = await axiosSecure.post("/login", {
         email,
         password,
       });
       console.log('login response',data)
 
-      // Save token in localStorage
+      
       localStorage.setItem("token", data.token);
       localStorage.setItem("userRole", data.user.role);
 
-      // Redirect based on role
+    
       if (data.user.role === "admin") router.push("/dashboard/admin");
       else if (data.user.role === "employee") router.push("/dashboard/employee");
       else if (data.user.role === "client") router.push("/dashboard/client");
